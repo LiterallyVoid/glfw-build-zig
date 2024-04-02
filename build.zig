@@ -24,98 +24,136 @@ pub fn buildGlfw(b: *std.build.Builder, target: std.zig.CrossTarget, optimize: s
 
     const GLFW_SRC_DIR = "deps/glfw/src/";
 
-    libglfw.addCSourceFiles(&.{
-        GLFW_SRC_DIR ++ "context.c",
-        GLFW_SRC_DIR ++ "init.c",
-        GLFW_SRC_DIR ++ "input.c",
-        GLFW_SRC_DIR ++ "monitor.c",
-        GLFW_SRC_DIR ++ "platform.c",
-        GLFW_SRC_DIR ++ "vulkan.c",
-        GLFW_SRC_DIR ++ "window.c",
-        GLFW_SRC_DIR ++ "egl_context.c",
-        GLFW_SRC_DIR ++ "osmesa_context.c",
-        GLFW_SRC_DIR ++ "null_init.c",
-        GLFW_SRC_DIR ++ "null_monitor.c",
-        GLFW_SRC_DIR ++ "null_window.c",
-        GLFW_SRC_DIR ++ "null_joystick.c",
-    }, &.{});
+    libglfw.addCSourceFiles(.{
+        .files = &.{
+            GLFW_SRC_DIR ++ "context.c",
+            GLFW_SRC_DIR ++ "init.c",
+            GLFW_SRC_DIR ++ "input.c",
+            GLFW_SRC_DIR ++ "monitor.c",
+            GLFW_SRC_DIR ++ "platform.c",
+            GLFW_SRC_DIR ++ "vulkan.c",
+            GLFW_SRC_DIR ++ "window.c",
+            GLFW_SRC_DIR ++ "egl_context.c",
+            GLFW_SRC_DIR ++ "osmesa_context.c",
+            GLFW_SRC_DIR ++ "null_init.c",
+            GLFW_SRC_DIR ++ "null_monitor.c",
+            GLFW_SRC_DIR ++ "null_window.c",
+            GLFW_SRC_DIR ++ "null_joystick.c",
+        },
+    });
 
     if (platform.cocoa) {
-        libglfw.addCSourceFiles(&.{
-            GLFW_SRC_DIR ++ "cocoa_time.c",
-            GLFW_SRC_DIR ++ "posix_module.c",
-            GLFW_SRC_DIR ++ "posix_thread.c",
-        }, &.{});
+        libglfw.addCSourceFiles(
+            .{
+                .files = &.{
+                    GLFW_SRC_DIR ++ "cocoa_time.c",
+                    GLFW_SRC_DIR ++ "posix_module.c",
+                    GLFW_SRC_DIR ++ "posix_thread.c",
+                },
+            },
+        );
     }
 
     if (platform.win32) {
-        libglfw.addCSourceFiles(&.{
-            GLFW_SRC_DIR ++ "win32_module.c",
-            GLFW_SRC_DIR ++ "win32_time.c",
-            GLFW_SRC_DIR ++ "win32_thread.c",
-        }, &.{});
+        libglfw.addCSourceFiles(
+            .{
+                .files = &.{
+                    GLFW_SRC_DIR ++ "win32_module.c",
+                    GLFW_SRC_DIR ++ "win32_time.c",
+                    GLFW_SRC_DIR ++ "win32_thread.c",
+                },
+            },
+        );
     }
 
     if (platform.linux) {
-        libglfw.addCSourceFiles(&.{
-            GLFW_SRC_DIR ++ "posix_module.c",
-            GLFW_SRC_DIR ++ "posix_time.c",
-            GLFW_SRC_DIR ++ "posix_thread.c",
-        }, &.{});
+        libglfw.addCSourceFiles(
+            .{
+                .files = &.{
+                    GLFW_SRC_DIR ++ "posix_module.c",
+                    GLFW_SRC_DIR ++ "posix_time.c",
+                    GLFW_SRC_DIR ++ "posix_thread.c",
+                },
+            },
+        );
     }
 
     if (platform.cocoa) {
         libglfw.defineCMacro("_GLFW_COCOA", null);
-        libglfw.addCSourceFiles(&.{
-            GLFW_SRC_DIR ++ "cocoa_init.m",
-            GLFW_SRC_DIR ++ "cocoa_joystick.m",
-            GLFW_SRC_DIR ++ "cocoa_monitor.m",
-            GLFW_SRC_DIR ++ "cocoa_window.m",
-            GLFW_SRC_DIR ++ "nsgl_context.m",
-        }, &.{});
+        libglfw.addCSourceFiles(
+            .{
+                .files = &.{
+                    GLFW_SRC_DIR ++ "cocoa_init.m",
+                    GLFW_SRC_DIR ++ "cocoa_joystick.m",
+                    GLFW_SRC_DIR ++ "cocoa_monitor.m",
+                    GLFW_SRC_DIR ++ "cocoa_window.m",
+                    GLFW_SRC_DIR ++ "nsgl_context.m",
+                },
+            },
+        );
     }
 
     if (platform.win32) {
         libglfw.defineCMacro("_GLFW_WIN32", null);
-        libglfw.addCSourceFiles(&.{
-            GLFW_SRC_DIR ++ "win32_init.c",
-            GLFW_SRC_DIR ++ "win32_joystick.c",
-            GLFW_SRC_DIR ++ "win32_monitor.c",
-            GLFW_SRC_DIR ++ "win32_window.c",
-            GLFW_SRC_DIR ++ "wgl_context.c",
-        }, &.{});
+        libglfw.addCSourceFiles(
+            .{
+                .files = &.{
+                    GLFW_SRC_DIR ++ "win32_init.c",
+                    GLFW_SRC_DIR ++ "win32_joystick.c",
+                    GLFW_SRC_DIR ++ "win32_monitor.c",
+                    GLFW_SRC_DIR ++ "win32_window.c",
+                    GLFW_SRC_DIR ++ "wgl_context.c",
+                },
+            },
+        );
     }
 
     if (platform.x11) {
         libglfw.defineCMacro("_GLFW_X11", null);
-        libglfw.addCSourceFiles(&.{
-            GLFW_SRC_DIR ++ "x11_init.c",
-            GLFW_SRC_DIR ++ "x11_monitor.c",
-            GLFW_SRC_DIR ++ "x11_window.c",
-            GLFW_SRC_DIR ++ "xkb_unicode.c",
-            GLFW_SRC_DIR ++ "glx_context.c",
-        }, &.{});
+        libglfw.addCSourceFiles(
+            .{
+                .files = &.{
+                    GLFW_SRC_DIR ++ "x11_init.c",
+                    GLFW_SRC_DIR ++ "x11_monitor.c",
+                    GLFW_SRC_DIR ++ "x11_window.c",
+                    GLFW_SRC_DIR ++ "xkb_unicode.c",
+                    GLFW_SRC_DIR ++ "glx_context.c",
+                },
+            },
+        );
     }
 
     if (platform.wayland) {
         libglfw.defineCMacro("_GLFW_WAYLAND", null);
-        libglfw.addCSourceFiles(&.{
-            GLFW_SRC_DIR ++ "wl_init.c",
-            GLFW_SRC_DIR ++ "wl_monitor.c",
-            GLFW_SRC_DIR ++ "wl_window.c",
-            GLFW_SRC_DIR ++ "xkb_unicode.c",
-        }, &.{});
+        libglfw.addCSourceFiles(
+            .{
+                .files = &.{
+                    GLFW_SRC_DIR ++ "wl_init.c",
+                    GLFW_SRC_DIR ++ "wl_monitor.c",
+                    GLFW_SRC_DIR ++ "wl_window.c",
+                    GLFW_SRC_DIR ++ "xkb_unicode.c",
+                },
+            },
+        );
     }
 
     if (platform.x11 or platform.wayland) {
         if (platform.linux) {
-            libglfw.addCSourceFiles(&.{
-                GLFW_SRC_DIR ++ "linux_joystick.c",
-            }, &.{});
+            libglfw.addCSourceFiles(
+                .{
+                    .files = &.{
+                        GLFW_SRC_DIR ++ "linux_joystick.c",
+                    },
+                },
+            );
         }
-        libglfw.addCSourceFiles(&.{
-            GLFW_SRC_DIR ++ "posix_poll.c",
-        }, &.{});
+        libglfw.addCSourceFiles(
+            .{
+                .files = &.{
+                    GLFW_SRC_DIR ++ "posix_poll.c",
+                },
+            },
+        );
     }
 
     if (platform.wayland) {
@@ -128,13 +166,13 @@ pub fn buildGlfw(b: *std.build.Builder, target: std.zig.CrossTarget, optimize: s
 
         var code: u8 = undefined;
 
-        const wayland_client_pkgdatadir = try b.execAllowFail(&.{
+        const wayland_client_pkgdatadir = try b.runAllowFail(&.{
             "pkg-config",
             "wayland-client",
             "--var=pkgdatadir",
         }, &code, .Ignore);
 
-        const wayland_protocols_base = try b.execAllowFail(&.{
+        const wayland_protocols_base = try b.runAllowFail(&.{
             "pkg-config",
             "wayland-protocols",
             "--var=pkgdatadir",
